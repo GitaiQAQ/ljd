@@ -2,6 +2,8 @@
 # Copyright (C) 2013 Andrian Nord. See Copyright Notice in main.py
 #
 
+import config
+
 #
 # Almost direct wiki-to-code from
 # http://wiki.luajit.org/Bytecode-2.0
@@ -101,13 +103,17 @@ ISNEN = _IDef("ISNEN", 		T_VAR, 	None, 	T_NUM, 	"if {A} ~= {D}")
 ISEQP = _IDef("ISEQP", 		T_VAR, 	None, 	T_PRI, 	"if {A} == {D}")
 ISNEP = _IDef("ISNEP", 		T_VAR, 	None, 	T_PRI, 	"if {A} ~= {D}")
 
-# Unary test and copy ops
+# Unary tests and copy ops
 
 ISTC = _IDef("ISTC", 		T_DST, 	None, 	T_VAR, 	"{A} = {D}; if {D}")
 ISFC = _IDef("ISFC", 		T_DST, 	None, 	T_VAR, 	"{A} = {D}; if not {D}")
 
 IST = _IDef("IST", 		None, 	None, 	T_VAR, 	"if {D}")
 ISF = _IDef("ISF", 		None, 	None, 	T_VAR, 	"if not {D}")
+
+if config.isLt("2.1.0"):
+	ISTYPE = _IDef("ISTYPE", 	T_VAR, 	None, 	T_LIT, 	"ISTYPE unknow")
+	ISNUM = _IDef("ISNUM", 		T_VAR, 	None, 	T_LIT, 	"ISNUM unknow")
 
 # Unary ops
 
@@ -179,6 +185,9 @@ TGETV = _IDef("TGETV", 		T_DST, 	T_VAR, 	T_VAR, 	"{A} = {B}[{C}]")
 TGETS = _IDef("TGETS", 		T_DST, 	T_VAR, 	T_STR, 	"{A} = {B}.{C}")
 TGETB = _IDef("TGETB", 		T_DST, 	T_VAR, 	T_LIT, 	"{A} = {B}[{C}]")
 
+if config.isLt("2.1.0"):
+	TGETR = _IDef("TGETR", 		T_DST, 	T_VAR, 	T_VAR, 	"unkown TGETR")
+
 TSETV = _IDef("TSETV", 		T_VAR, 	T_VAR, 	T_VAR, 	"{B}[{C}] = {A}")
 TSETS = _IDef("TSETS", 		T_VAR, 	T_VAR, 	T_STR, 	"{B}.{C} = {A}")
 TSETB = _IDef("TSETB", 		T_VAR, 	T_VAR, 	T_LIT, 	"{B}[{C}] = {A}")
@@ -186,6 +195,9 @@ TSETB = _IDef("TSETB", 		T_VAR, 	T_VAR, 	T_LIT, 	"{B}[{C}] = {A}")
 TSETM = _IDef("TSETM", 	 	T_BS, 	None, 	T_NUM,
 		"for i = 0, MULTRES, 1 do"
 		" {A_minus_one}[{D_low} + i] = slot({A} + i)")
+
+if config.isLt("2.1.0"):
+	TSETR = _IDef("TSETR", 		T_VAR, 	T_VAR, 	T_VAR, 	"unkow TSETR")
 
 # Calls and vararg handling. T = tail call.
 
@@ -293,4 +305,5 @@ FUNCC = _IDef("FUNCC", 		T_RBS, 	None, 	None,
 FUNCCW = _IDef("FUNCCW", 	T_RBS, 	None, 	None,
 		"Wrapped C function with frame size {A}")
 
-UNKNW = _IDef("UNKNW", 		T_LIT, 	T_LIT, 	T_LIT, "Unknown instruction")
+if config.isLt("2.1.0"):
+	UNKNW = _IDef("UNKNW", 		T_LIT, 	T_LIT, 	T_LIT, "Unknown instruction")

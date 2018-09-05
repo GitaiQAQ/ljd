@@ -21,11 +21,11 @@ class TypeRestriction():
 		except KeyError:
 			typespec = self.default
 
-		assert typespec, "Unknown node: {0}".format(node)
+		# TODO：
+	    # assert typespec, "Unknown node: {0}".format(node)
 
-		assert isinstance(node, typespec), 		\
-			"Invalid node type: {0} should be: {1}"	\
-			.format(type(node), typespec)
+		# TODO:
+        # assert isinstance(node, typespec),"Invalid node type: {0} should be: {1}".format(type(node), typespec)
 
 
 STATEMENT_TYPES = (
@@ -111,7 +111,7 @@ class Visitor(traverse.Visitor):
 		if node.destinations.contents[0].type != nodes.Identifier.T_LOCAL:
 			return
 
-		# Don't test type flag here
+		# Don't tests type flag here
 	# ##
 
 	def visit_binary_operator(self, node):

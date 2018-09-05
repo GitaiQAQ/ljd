@@ -58,21 +58,22 @@ def _glue_flows(node):
 	for statements in _gather_statements_lists(node):
 		blocks = statements.contents
 
-		assert isinstance(blocks[-1].warp, nodes.EndWarp)
+		if hasattr(blocks[-1], 'warp'):
+			assert isinstance(blocks[-1].warp, nodes.EndWarp)
 
-		for i, block in enumerate(blocks[:-1]):
-			warp = block.warp
+			for i, block in enumerate(blocks[:-1]):
+				warp = block.warp
 
-			assert _is_flow(warp)
+				assert _is_flow(warp)
 
-			target = warp.target
+				target = warp.target
 
-			assert target == blocks[i + 1]
+				assert target == blocks[i + 1]
 
-			target.contents = block.contents + target.contents
-			block.contents = []
+				target.contents = block.contents + target.contents
+				block.contents = []
 
-		statements.contents = blocks[-1].contents
+			statements.contents = blocks[-1].contents
 
 
 # ##
