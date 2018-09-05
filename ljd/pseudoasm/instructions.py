@@ -539,7 +539,7 @@ _HANDLERS_MAP = (
 	(ins.ISEQP.opcode, 	_translate_normal),
 	(ins.ISNEP.opcode, 	_translate_normal),
 
-	# Unary test and copy ops
+	# Unary tests and copy ops
 
 	(ins.ISTC.opcode, 	_translate_normal),
 	(ins.ISFC.opcode, 	_translate_normal),
